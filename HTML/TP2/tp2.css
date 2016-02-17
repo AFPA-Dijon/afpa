@@ -1,0 +1,32 @@
+.h2Vert{
+    color:green;
+}
+.listeSansPuce{
+    list-style-type:none;
+    display:inline;
+}
+.listeAvecPuce{
+    list-style-type:circle;
+}
+.listeSansPuce2{
+    list-style-type:none;
+}
+.titre_exo{
+    color:blue;
+    list-style-type:square;
+    font-weight:bold;
+    font-size:1.5em;
+}
+.listeSansPuce3{
+    list-style-type:none;
+    color:red;
+}
+table{
+    border-collapse:collapse;
+}
+td{
+    border:1px solid black;
+}
+.celVert{
+    background-color:green;
+}
