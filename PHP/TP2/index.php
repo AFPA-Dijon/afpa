@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -14,7 +15,7 @@
 <body>
 
     <!--header navbar-->
-    <div class="navbar-fixed">
+    <div class="navbar-fixed" >
         <nav class="blue-grey darken-1">
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo">
@@ -28,25 +29,31 @@
             </div>
         </nav>
     </div>
-    
-    <!--content goes here-->
-   <?php
-   var_dump($_GET);
-   if(empty($_GET['page'])){
-       include_once 'php/accueil.php';
-   } else {
-       if($_GET['page'] == 'exercice2'){
-           include_once 'php/exercice2.php';
-       } 
-       else if($_GET['page'] == 'exercice4'){
-           include_once 'php/exercice4.php';
+    <div class="container">
+        <!--content goes here-->
+       <?php
+       if(empty($_GET['page'])){
+           require_once 'php/accueil.php';
+       } else {
+           if($_GET['page'] == 'exercice2'){
+               require_once 'php/exercice2.php';
+           } 
+           else if($_GET['page'] == 'exercice4'){
+               require_once 'php/exercice4.php';
+           }
        }
-   }
-   ?>
+       ?>
+    </div>
+    
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
+    <script>
+         $(document).ready(function() {
+            $('select').material_select();
+         });
+    </script>
 </body>
 
 </html>
