@@ -1,0 +1,49 @@
+input.validate {
+    border-bottom: 1px solid #78909c!important;
+    box-shadow: 0 1px 0 0 #78909c!important;
+}
+input.validate.invalid {
+    border-bottom: 1px solid #c62828!important;
+    box-shadow: 0 1px 0 0 #c62828!important;
+}
+.input-field label.active{
+    color: #546e7a!important;
+}
+
+.input-field .prefix {
+    color: #263238;
+}
+.input-field .prefix.active {
+    color: #546e7a;
+}
+button.blue-grey.darken-2:hover {
+    background-color: #546e7a!important;
+}
+nav ul li:hover {
+   background-color: #FFF;
+   opacity: 0.5;
+}
+nav ul li:hover>a {
+   color: #546e7a;
+}
+.navbar-fixed>nav{
+    height: 64px!important;
+}
+.navbar-fixed{
+    height: 64px!important;
+}
+.brand-logo>img {
+    margin-top:15%;
+}
+.material-icons.prefix {
+    line-height: inherit;
+}
+.content-title{
+    padding: 30px;
+}
+
+/*bataille navale*/
+.cell-bataillenavale {
+    width: 10%; 
+    border: solid red 1px;
+}

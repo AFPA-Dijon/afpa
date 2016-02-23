@@ -6,11 +6,11 @@ function valid($email, $password, $users){
      } else {
          
          if( !isset($users[$email]) ){
-             $errors['email'] = "Accès interdit, compte inexistant";
+             $errors['email'] = "Compte inexistant";
          } else { 
              
              if( $users[$email]['password'] !== $password ){
-                $errors['password'] = "Accès interdit, le compte et le mot de passe ne correspondent pas";
+                $errors['password'] = "Mauvais mot de passe";
              }
          }
      }
@@ -24,50 +24,58 @@ $users = [
 $errors = valid($_POST['email'], $_POST['password'], $users);
     
 ?>
-        
-   <form class="col s12 " action="index.php?page=accueil" method="post">
-      <div class="row">
-        <div class="input-field col s12 m6 l6">
-          <input name="email" type="email" class="validate <?php echo !empty($_POST) && !empty($errors)?'invalid': '' ?>">
-          <label for="email">Email</label>
+<div class="row content-title">
+    <h4 class="center blue-grey-text text-darken-1">Connexion</h4>
+</div>
+<form action="index.php" method="post">
+
+    <div class="row">
+        <div class="input-field col s12 m6 l6 offset-l3 offset-m3">
+            <i class="material-icons prefix" >account_box</i>
+            <input value="<?=$_POST['email']?>" name="email" type="email" class="validate <?php echo !empty($_POST) && !empty($errors)?'invalid': '' ?>">
+            <label for="email">Email</label>
+            
+            <?php if( !empty($_POST) && !empty($errors[ 'email']) ):?>
+            <br /><h6 class="center red-text error-message"><?=$errors['email']?></h6>
+            <?php endif;?>
         </div>
-      </div>
-    <?php if( !empty($_POST) &&  !empty($errors['email']) ):?>
-      <div class="row">
-        <div class="col s12  m6 l6">
-            <h6 class="error-message"><?=$errors['email']?></h6>
+    </div>
+    <div class="row">
+        <div class="input-field col s12 m6 l6 offset-l3 offset-m3">
+            <i class="material-icons prefix" >security</i>
+            <input name="password" type="password" class="validate <?php echo !empty($_POST) && !empty($errors)?'invalid': '' ?>">
+            <label for="password">Password</label>
+            
+            <?php if( !empty($_POST) && !empty($errors[ 'password']) ):?>
+            <h6 class="center red-text error-message"><?=$errors['password']?></h6> 
+            <?php endif;?>
         </div>
-      </div>
-      <?php endif;?>
-      <div class="row">
-        <div class="input-field col s12 m6 l6">
-          <input name="password" type="password" class="validate <?php echo !empty($_POST) && !empty($errors)?'invalid': '' ?>">
-          <label for="password">Password</label>
+    </div>
+    <div class="row">
+        <div class="col s6 offset-s3">
         </div>
-      </div>
-      <?php if( !empty($_POST) && !empty($errors['password']) ):?>
-      <div class="row">
-        <div class="col s12  m6 l6">
-            <h6 class="error-message"><?=$errors['password']?></h6>
+    </div>
+    <div class="row">
+        <div class="col s12 center">
+            <button class="btn waves-effect waves-light blue-grey darken-2" type="submit" name="action">Se connecter
+            </button>
         </div>
-      </div>
-      <?php endif;?>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Se connecter
-        </button>
-    </form>
+    </div>
+
+</form>
     
     
-    <?php  if(!empty($_POST) &&  !empty($errors)): ?>
-     <div class="card-panel teal lighten-2">
-         <h6>Accès refusé</h6>
-     </div>
-    <?php elseif(!empty($_POST) &&  empty($errors)): ?> 
-    <div class="card-panel teal lighten-2">
-         <h6>
-         <?php
-         echo "Bienvenue, ". $users[ $_POST['email'] ][ 'nom' ];
-         header('Location: index.php?page=exercice2'); die;
-         ?>
-         </h6>
-     </div>
-    <?php endif; ?>
+<?php  if(!empty($_POST) &&  !empty($errors)): ?>
+<div class="card-panel red darken-3">
+ <h5 class="grey-text text-lighten-5">Accès refusé</h5>
+</div>
+<?php elseif(!empty($_POST) &&  empty($errors)): ?> 
+<div class="card-panel teal lighten-2">
+     <h6>
+     <?php
+     echo "Bienvenue, ". $users[ $_POST['email'] ][ 'nom' ];
+     header('Location: index.php?page=exercice2');
+     ?>
+     </h6>
+ </div>
+<?php endif; ?>
