@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
     <!--Custom css-->
     <link type="text/css" rel="stylesheet" href="css/app.css" media="screen,projection" />
-    <!--Let browser know website is optimized for mobile-->
+    <!--Let browser know website is optimiz ed for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
@@ -29,7 +29,7 @@
                     <li><a href="index.php?page=exercice2">Exercice 2</a></li>
                     <li><a href="index.php?page=exercice4">Exercice 4</a></li>
                     <li><a href="index.php?page=bataillenavale">Bataille navale v1</a></li>
-                    <li><a href="index.php?page=bataillenavale_v2">Bataille navale v2</a></li>
+                    <li><a href="index.php?page=bataillenavale_v2">Bataille navale_v2</a></li>
                 </ul>
                 <?php endif; ?>
             </div> </div>
