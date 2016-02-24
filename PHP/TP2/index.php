@@ -1,3 +1,9 @@
+<?php
+session_start();
+if( !isset($_SESSION['Auth']) && isset($_GET['page']) ){
+    unset($_GET['page']);
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -25,11 +31,11 @@
                 </a>
                 <?php if(isset($_GET['page']) && $_GET['page'] != 'accueil'): ?>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="index.php">Accueil</a></li>
                     <li><a href="index.php?page=exercice2">Exercice 2</a></li>
                     <li><a href="index.php?page=exercice4">Exercice 4</a></li>
                     <li><a href="index.php?page=bataillenavale">Bataille navale v1</a></li>
                     <li><a href="index.php?page=bataillenavale_v2">Bataille navale_v2</a></li>
+                    <li><a href="index.php?page=deconnexion">Deconnexion</a></li>
                 </ul>
                 <?php endif; ?>
             </div> </div>
@@ -53,6 +59,9 @@
            else if($_GET['page'] == 'bataillenavale_v2'){
                require_once 'php/bataillenavale_v2.php';
            }
+           else if($_GET['page'] == 'deconnexion'){
+               require_once 'php/deconnexion.php';
+           }
        }
        ?>
     </div>
@@ -64,6 +73,8 @@
     <script>
          $(document).ready(function() {
             $('select').material_select();
+            $(".dropdown-button").dropdown();
+        
          });
     </script>
 </body>

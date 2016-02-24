@@ -1,4 +1,6 @@
 <?php
+var_dump($_SESSION);
+
 $operateurs = [
     "plus" => "+", 
     "moins" => "-",
@@ -22,9 +24,6 @@ if(is_numeric($operande1) && is_numeric($operande2) && isset($operateur)){
     }//endswitch
    
 }//endif
-if(!empty($_POST))
-extract($_POST);
-var_dump($operande1, $operande2);
 ?>
 <div class="row content-title">
     <h4 class="center blue-grey-text text-darken-1">Calculatrice</h4>

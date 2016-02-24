@@ -1,15 +1,32 @@
 <?php
-function valid($email, $password, $users){
+mysql_connect('localhost', 'sami', 'password');
+mysql_select_db('siteweb');
+
+function emailValid($email){
+     $sql = " SELECT * FROM users WHERE email = '$email' ";
+     $requete = mysql_query($sql);
+     return mysql_num_rows($requete) >= 1;
+}
+
+function loginValid($email, $password){
+     $password = sha1($password);
+     $sql = " SELECT * FROM users WHERE email = '$email' AND password = '$password' ";
+     $requete = mysql_query($sql);
+     return mysql_num_rows($requete) == 1;
+}
+
+function valid($email, $password){
      $errors = array();
+ 
      if(empty($email) || empty($password)){
         $errors['empty'] = "Veuillez saisir les deux champs";
      } else {
          
-         if( !isset($users[$email]) ){
+         if( !emailValid($email) ){
              $errors['email'] = "Compte inexistant";
          } else { 
              
-             if( $users[$email]['password'] !== $password ){
+             if( !loginValid($email, $password) ){
                 $errors['password'] = "Mauvais mot de passe";
              }
          }
@@ -17,12 +34,14 @@ function valid($email, $password, $users){
      return $errors;
   }
 
-$users = [
-    'sam@provider.com' => ['nom' => 'Sam', 'password' => 'azer'],
-    'kurt@provider.com' => ['nom' => 'Kurt', 'password' => 'reaz']
-];
-$errors = valid($_POST['email'], $_POST['password'], $users);
-    
+extract($_POST);
+$errors = valid($email, $password);
+
+if(isset($email) && isset($password) && empty($errors)){
+    $_SESSION['Auth']['email'] = $email;
+    header('Location: index.php?page=exercice2');
+}
+
 ?>
 <div class="row content-title">
     <h4 class="center blue-grey-text text-darken-1">Connexion</h4>
@@ -69,13 +88,4 @@ $errors = valid($_POST['email'], $_POST['password'], $users);
 <div class="card-panel red darken-3">
  <h5 class="grey-text text-lighten-5">Accès refusé</h5>
 </div>
-<?php elseif(!empty($_POST) &&  empty($errors)): ?> 
-<div class="card-panel teal lighten-2">
-     <h6>
-     <?php
-     echo "Bienvenue, ". $users[ $_POST['email'] ][ 'nom' ];
-     header('Location: index.php?page=exercice2');
-     ?>
-     </h6>
- </div>
-<?php endif; ?>
+<?php endif;?>
