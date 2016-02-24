@@ -19,8 +19,7 @@ class Form {
         $legend = !empty($legend)? '<legend>'.$legend.'</legend>': '';
         return '<fieldset>'.$legend;
     }
-    composer create-project --prefer-dist cakephp/app CakePHP_Test
-    
+
     public function closeFieldSet(){
         return '</fieldset>';
     }

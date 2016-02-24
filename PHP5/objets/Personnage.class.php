@@ -10,8 +10,8 @@ class Personnage {
     private $nom;
     private $atk;
     
-    public function __construct($nom = null, $pv = null, $atk = null){
-        $this->nom = isset($nom) ? $nom : "Personnage";
+    public function __construct($nom, $pv = null, $atk = null){
+        $this->nom = $nom;
         $this->setPv( $pv );
         $this->setAtk( $atk );
     }
@@ -23,6 +23,7 @@ class Personnage {
         }
     }
     
+  
     private function diminuerPv($pv = 0){
         $this->pv -= $pv;
     }
