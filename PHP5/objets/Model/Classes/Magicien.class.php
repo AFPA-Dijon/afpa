@@ -1,12 +1,11 @@
 <?php
 
 namespace Model\Classes;
-use \Model\Personnage;
 /**
  * Class Magicien: c'est un personnage spécialisé
 */
 
-class Magicien extends Personnage {
+class Magicien extends \Model\Personnage {
     
     /*Dégâts d'attaque magique*/
     private $atkm;
