@@ -4,18 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Student Entity.
+ * StudentsTest Entity.
  *
  * @property int $id
- * @property string $nom
- * @property string $prenom
- * @property \Cake\I18n\Time $datenaiss
- * @property string $rue
- * @property int $cp
- * @property string $ville
- * @property string $image
+ * @property float $note
+ * @property int $student_id
+ * @property \App\Model\Entity\Student $student
+ * @property int $test_id
+ * @property \App\Model\Entity\Test $test
  */
-class Student extends Entity
+class StudentsTest extends Entity
 {
 
     /**
@@ -31,6 +29,4 @@ class Student extends Entity
         '*' => true,
         'id' => false,
     ];
-    
-   
 }

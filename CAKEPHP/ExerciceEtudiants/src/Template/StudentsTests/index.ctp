@@ -6,29 +6,28 @@
     </ul>
 </nav>
 
-<div class="medium-10 columns content index">
-    <table>
+<div class="medium-10 columns content">
+     <table>
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
+                <th><?= $this->Paginator->sort('datepreuve') ?></th>
+                <th><?= $this->Paginator->sort('codemat') ?></th>
+                <th><?= $this->Paginator->sort('lieu') ?></th>
                 <th><?= $this->Paginator->sort('nom') ?></th>
                 <th><?= $this->Paginator->sort('prenom') ?></th>
-                <th><?= $this->Paginator->sort('datenaiss') ?></th>
-                <th><?= $this->Paginator->sort('rue') ?></th>
-                <th><?= $this->Paginator->sort('cp') ?></th>
-                <th><?= $this->Paginator->sort('ville') ?></th>
+                <th><?= $this->Paginator->sort('note') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach($students as $student):?>
+            <?php  foreach($studentsTests as $studentTest): ?>
             <tr>
-                <td><?= $student->id ?></td>
-                <td><?= $student->nom ?></td>
-                <td><?= $student->prenom ?></td>
-                <td><?= $student->datenaiss->i18nFormat('dd-MM-yyyy') ?></td>
-                <td><?= $student->rue ?></td>
-                <td><?= $student->cp ?></td>
-                <td><?= $student->ville ?></td>
+                <td><?= $studentTest['test']['datepreuve']->i18nFormat('dd-MM-yyyy') ?></td>
+                <td><?= $studentTest['test']['subject']['codemat'] ?></td>
+                <td><?= $studentTest['test']['lieu'] ?></td>
+                <td><?= $studentTest['student']['nom'] ?></td>
+                <td><?= $studentTest['student']['prenom'] ?></td>
+                <td><?= $studentTest['note'] ?></td>
+                
             </tr>
             <?php endforeach; ?>
         </tbody>

@@ -25,7 +25,7 @@ class StudentsTable extends Table
         parent::initialize($config);
 
         $this->table('students');
-        $this->displayField('id');
+        $this->displayField('nom');
         $this->primaryKey('id');
     }
 

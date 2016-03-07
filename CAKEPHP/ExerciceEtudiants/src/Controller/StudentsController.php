@@ -10,9 +10,20 @@ class StudentsController extends AppController {
     
     /*affiche la liste des utilisateurs*/
      public function index(){
-         
-        $query = $this->Students->find();
-        $this->set('students', $query);
+        
+        
+        $this->paginate = [
+            'limit' => 5,
+            'order' => [
+                'Students.nom' => 'asc',
+                'Students.prenom' => 'asc'
+            ]
+        ]; 
+        
+        $this->set('students', $this->paginate($this->Students));
+        
+        /*
+        $this->set('students', $query);*/
     }
     
     public function view($id){
