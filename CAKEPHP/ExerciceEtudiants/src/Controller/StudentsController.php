@@ -10,8 +10,6 @@ class StudentsController extends AppController {
     
     /*affiche la liste des utilisateurs*/
      public function index(){
-        
-        
         $this->paginate = [
             'limit' => 5,
             'order' => [
@@ -19,21 +17,37 @@ class StudentsController extends AppController {
                 'Students.prenom' => 'asc'
             ]
         ]; 
-        
         $this->set('students', $this->paginate($this->Students));
-        
-        /*
-        $this->set('students', $query);*/
     }
     
+    /*affiche les details d'un etudiant, ses notes et sa moyenne*/
     public function view($id){
+        $this->paginate = [
+            'limit'=> 10, 
+            'order' => ['datepreuve' => 'desc']
+        ];
         $student = $this->Students->get($id);
+        $studentTests = TableRegistry::get('StudentsTests');
+        $query = $studentTests->find('participationsForStudent', ['student_id' => $id]);
+        $moyenne = $this->calculMoyenne($query->toArray());
         
+        $this->set('participations', $this->paginate($query));
         $this->set(compact('student'));
+        $this->set(compact('moyenne'));
     }
     
-     public function add()
-    {
+    /*helper pour view() calcul de la moyenne d'un étudiant pondérée par les coefficients des matières*/
+    private function calculMoyenne(array $participations){
+        $sumNoteCoeffs = 0;
+        $sumCoeffs = 0;
+        foreach ($participations as $participation) {
+            $sumNoteCoeffs += $participation['note'] * $participation['test']['subject']['coeff'];
+            $sumCoeffs += $participation['test']['subject']['coeff'];
+        }
+        return $sumNoteCoeffs / $sumCoeffs;
+    }
+    
+    public function add(){
         
         $student = $this->Students->newEntity();
         if ($this->request->is('post')) {

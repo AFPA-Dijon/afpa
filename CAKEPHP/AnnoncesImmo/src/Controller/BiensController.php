@@ -22,8 +22,8 @@ class BiensController extends AppController {
         
         if($this->request->isPost()){
             $data = $this->request->data;
+            $data['user_id'] = $this->Auth->user('id');
             $bien = $this->Biens->patchEntity($bien, $data);
-            
             $bien = $this->Biens->save($bien);
             if($bien){
                 if( $this->validImages($bien->id) ){

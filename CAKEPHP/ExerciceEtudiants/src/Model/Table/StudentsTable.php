@@ -37,17 +37,34 @@ class StudentsTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
+        $regexNomPrenom = '/^[a-zA-Z0-9]{3,20}$/';
+        $regexCP_FR = '/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/';
+        
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('nom', 'create')
-            ->notEmpty('nom');
+            ->requirePresence('nom')
+            ->notEmpty('nom')
+            ->add(
+                'nom', 'validFormat', 
+                [
+                    'rule' =>  ['custom' ,  $regexNomPrenom] , 
+                    'message' => 'Le nom ne doit contenir que des caractères alphanumériques  min 3 caractères, max 20 caractères'
+                ]
+            );
 
         $validator
             ->requirePresence('prenom', 'create')
-            ->notEmpty('prenom');
+            ->notEmpty('prenom')
+            ->add(
+                'prenom', 'validFormat', 
+                [
+                    'rule' => ['custom' ,  $regexNomPrenom] , 
+                    'message' => 'Le nom ne doit contenir que des caractères alphanumériques min 3 caractères, max 20 caractères'
+                ]
+            );
 
         $validator
             ->date('datenaiss')
@@ -58,8 +75,14 @@ class StudentsTable extends Table
             ->allowEmpty('rue');
 
         $validator
-            ->integer('cp')
-            ->allowEmpty('cp');
+            ->allowEmpty('cp')
+            ->add(
+                'cp', 'validFormat', 
+                [
+                    'rule' => ['custom', $regexCP_FR] , 
+                    'message' => 'Le code postal n\'est pas valide'
+                ]
+            );
 
         $validator
             ->allowEmpty('ville');
@@ -74,6 +97,8 @@ class StudentsTable extends Table
                         'rule' => ['extension', ['gif', 'jpeg', 'png', 'jpg'] ],
                         'message' => 'Type image invalide'
                     ]);
+                    
+                    
             
 
         return $validator;

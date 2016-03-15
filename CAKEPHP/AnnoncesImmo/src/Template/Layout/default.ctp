@@ -37,8 +37,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <section class="top-bar-section">
             <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
+                
+                <li><?= $this->Html->link('Se déconnecter', '/users/logout')?></li>
+                <li><?= $this->Html->link('S\'inscrire', '/users/add')?></li>
+                
             </ul>
         </section>
     </nav>

@@ -17,6 +17,8 @@
                 <th><?= $this->Paginator->sort('rue') ?></th>
                 <th><?= $this->Paginator->sort('cp') ?></th>
                 <th><?= $this->Paginator->sort('ville') ?></th>
+                
+                <th><?= 'ACTIONS' ?></th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +31,12 @@
                 <td><?= $student->rue ?></td>
                 <td><?= $student->cp ?></td>
                 <td><?= $student->ville ?></td>
+                <?php /*<td>
+                    <?= $this->Html->link('Voir profil', '/students/view/'. $student->id ) ?>
+                    </td> */ 
+                ?>
+                <td><?= $this->Html->link('Voir profil', ['action'=> 'view', $student->id] ) ?></td>
+               
             </tr>
             <?php endforeach; ?>
         </tbody>

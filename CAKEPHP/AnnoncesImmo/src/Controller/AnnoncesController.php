@@ -8,14 +8,18 @@ class AnnoncesController extends AppController {
     
     public function add(){
         $annonce = $this->Annonces->newEntity();
-        $biens = $this->Annonces->Biens->find('list')->toArray();
+        $biens = $this->Annonces->Biens->find('list')->where(['user_id' => $this->Auth->user('id')])->toArray();
         
         if($this->request->isPost()){
             $data = $this->request->data;
             $date = new FrozenDate();
             $data['datedeparution'] = $date;
+            $data['user_id'] = $this->Auth->user('id');
             $annonce = $this->Annonces->patchEntity($annonce, $data);
-            if($this->Annonces->save($annonce)){
+            
+            $userBiens = $this->Annonces->Biens->find()->where(['user_id' => $data['user_id']])->first();
+            /*si le bien spécifié dans le formulaire appartient à l'utilisateur connecté*/
+            if($userBiens && $this->Annonces->save($annonce)){
                 $this->Flash->success('L\'annonce no '.$annonce->id. ' a bien été publiée');
                 return $this->redirect('/annonces/index');
             } else {
@@ -33,6 +37,7 @@ class AnnoncesController extends AppController {
     }
     
     public function index(){
+        
         $annonces = $this->Annonces->find('all', ['contain' => 'Biens']);
         $villes = $this->Annonces->Biens->find('list', ['keyField' => 'ville', 'valueField' => 'ville'])->toArray();
         $types = $this->Annonces->Biens->Types->find('list');
@@ -44,6 +49,13 @@ class AnnoncesController extends AppController {
                 $annonces->where(['categorie' => $data['categorie']]);
             }
             
+            if(!empty($data['ville'])){
+                $annonces->where(['ville' => $data['ville']]);
+            }
+            
+            if(!empty($data['nombredepieces'])){
+                $annonces->where(['nombredepieces' => $data['nombredepieces']]);
+            }
             
             if(!empty($data['type_id'])){
                 $annonces->matching('Biens', function ($q) use ($data) {
@@ -66,6 +78,12 @@ class AnnoncesController extends AppController {
                 } 
             }
             $annonces->order(['prix' => 'ASC']);
+            
+            if(!empty($data['datedeparution'])){
+               //echo($data['datedeparution']);
+                $annonces->where(['Annonces.datedeparution >' => (strtotime($data['datedeparution']))]);
+            }
+            debug($annonces->sql());
             
         }
         

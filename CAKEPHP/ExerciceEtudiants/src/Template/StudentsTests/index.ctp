@@ -1,4 +1,4 @@
-<nav class="medium-2 columns">
+ <nav class="medium-2 columns">
     <ul class="side-nav">
         <li class="heading">NAVIGATION</li>
         <li><?= $this->Html->link('Ajouter matières', ['controller' => 'Subjects', 'action' => 'add']) ?></li>
@@ -18,6 +18,7 @@
                 <th><?= $this->Paginator->sort('note') ?></th>
             </tr>
         </thead>
+        
         <tbody>
             <?php  foreach($studentsTests as $studentTest): ?>
             <tr>

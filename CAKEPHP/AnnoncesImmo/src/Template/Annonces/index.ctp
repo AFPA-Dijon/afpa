@@ -10,9 +10,11 @@
             </tr>
             <tr>
                 <th>Date de parution</th>
-                <td><?= $this->Form->input('datedeparution', ['label' => '', 'options' => ['-1 weeks' => '1 weeks', '-2 weeks' => '2 weeks', '-3 weeks' => '3 weeks',
-                                                              '-1 months' => '1 months', '-2 months' => '2 months', '-2 months' => '2 months', '-4 weeks' => '4 months', '-6 months' => '6 months',
-                                                              '-1 years' => '1 years'],
+                <td><?= $this->Form->input('datedeparution', ['label' => '', 'options' => [
+                                                              '-1 days' => 'Il y a un jour','-2 days' => 'Il y a deux jours','-3 days' => 'Il y a trois jour','-4 days' => 'Il y a quatres jours',
+                                                              '-1 weeks' => 'Il y a une semaine ', '-2 weeks' => 'Il y a deux semaines ', '-3 weeks' => 'Il y a trois semaines ',
+                                                              '-1 months' => 'Il y a un mois', '-2 months' => 'Il y a deux mois', '-3 months' => 'Il y a trois mois', '-4 weeks' => 'Il y a quatre mois', '-6 months' => 'Il y a six mois',
+                                                              '-1 years' => 'Il y a un an'],
                                                                 'empty' => 'Toutes les dates' ]
                                                                 ) ?>
             <tr>

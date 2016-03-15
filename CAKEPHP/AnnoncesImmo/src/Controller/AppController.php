@@ -25,7 +25,7 @@ use Cake\Event\Event;
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller
+ class AppController extends Controller
 {
 
     /**
@@ -43,9 +43,28 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Annonces',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'username', 'password' => 'password']
+                ]
+            ]
+        ] );
         Number::defaultCurrency('EUR');
+        
+        
     }
-
+     public function beforeFilter(Event $event){
+        $this->Auth->allow(['index', 'view', 'login']);
+    }
     /**
      * Before render callback.
      *
@@ -54,6 +73,7 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
+        debug($this->Auth->user());
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {

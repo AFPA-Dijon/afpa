@@ -63,7 +63,7 @@ class StudentsTestsTable extends Table
 
         return $validator;
     }
-
+    
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -72,9 +72,10 @@ class StudentsTestsTable extends Table
      * @return \Cake\ORM\RulesChecker
      */
     public function buildRules(RulesChecker $rules)
-    {
+    {  
         $rules->add($rules->existsIn(['student_id'], 'Students'));
         $rules->add($rules->existsIn(['test_id'], 'Tests'));
+        $rules->add($rules->isUnique(['student_id', 'test_id'], 'Cet étudiant a déja participé à cet examen'));
         return $rules;
     }
     
@@ -96,4 +97,22 @@ class StudentsTestsTable extends Table
             )
             ->hydrate(false);
     }
+    
+    public function findParticipationsForStudent(Query $query, array $options){
+         return $query
+            ->contain(
+                    [
+                        'Tests' => function ($q) {
+                           return $q->select(['Tests.datepreuve']);
+                        },
+                        'Tests.Subjects' => function ($q) {
+                           return $q->select([ 'Subjects.libelle', 'Subjects.coeff']);
+                        }
+                    ]
+            )
+            ->where($options)->hydrate(false);
+    }
+    
+    
+     
 }

@@ -36,6 +36,10 @@ class BiensTable extends Table
             'foreignKey' => 'type_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
         $this->hasMany('Annonces', [
             'foreignKey' => 'bien_id'
         ]);
@@ -80,6 +84,11 @@ class BiensTable extends Table
         ->integer('type_id')
         ->requirePresence('type_id', true)
         ->notEmpty('type_id');
+        
+         $validator
+        ->integer('user_id')
+        ->requirePresence('user_id', true)
+        ->notEmpty('user_id');
 
         return $validator;
     }
@@ -94,6 +103,7 @@ class BiensTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['type_id'], 'Types'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
 }

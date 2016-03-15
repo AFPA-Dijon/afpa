@@ -25,8 +25,8 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->table('users');
-        $this->displayField('login');
-        $this->primaryKey('login');
+        $this->displayField('username');
+        $this->primaryKey('id');
     }
 
     /**
@@ -37,16 +37,14 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
-        $validator
-            ->allowEmpty('login', 'create');
-
-        $validator
-            ->allowEmpty('password');
-
-        $validator
-            ->allowEmpty('role');
-
-        return $validator;
+        return $validator
+            ->notEmpty('username', "Un nom d'utilisateur est nécessaire")
+            ->notEmpty('password', 'Un mot de passe est nécessaire')
+            ->notEmpty('role', 'Un role est nécessaire')
+            ->add('role', 'inList', [
+                'rule' => ['inList', ['admin', 'author']],
+                'message' => 'Merci de rentrer un role valide'
+            ]);
     }
 
     /**
@@ -58,7 +56,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['login']));
+        $rules->add($rules->isUnique(['username'], 'Ce nom est déjà utilisé'));
         return $rules;
     }
 }

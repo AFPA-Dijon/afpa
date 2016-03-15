@@ -33,6 +33,10 @@ class AnnoncesTable extends Table
             'foreignKey' => 'bien_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -60,7 +64,12 @@ class AnnoncesTable extends Table
             ->numeric('prix')
             ->requirePresence('prix', 'create')
             ->notEmpty('prix');
-
+            
+         $validator
+            ->integer('user_id')
+            ->requirePresence('user_id', true)
+            ->notEmpty('user_id');
+            
         return $validator;
     }
 
@@ -74,6 +83,7 @@ class AnnoncesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['bien_id'], 'Biens'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
 }

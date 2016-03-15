@@ -17,7 +17,7 @@
                 ['label' => 'Date de naissance','minYear' => 1915, 'maxYear' => date('Y')]
             );
             echo $this->Form->input('rue');
-            echo $this->Form->input('codepostal');
+            echo $this->Form->input('cp', ['type' => 'text']);
             echo $this->Form->input('ville');
             echo $this->Form->file('image', ['accept' => 'image/gif, image/jpeg, image/png']);
         ?>

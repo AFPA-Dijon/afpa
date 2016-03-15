@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Entity\Test;
 
 class TestsController extends AppController {
     
     public function index(){
         $tests = $this->Tests->find()->contain(['Subjects']);
+        
         $this->set('tests', $tests);
     }
     
