@@ -96,10 +96,6 @@ class CountriesController extends AppController {
             $countries = $this->Countries->find('countriesWithProbability', ['percentage' => $data['percentage'], 'language' => $data['language']]);
             $this->set(compact('countries'));
         }
-            
-        
-        
-         $this->set(compact('officialLanguages'));
-        
+        $this->set(compact('officialLanguages'));
     }
 }
