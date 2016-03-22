@@ -65,7 +65,8 @@ class StudentsController extends AppController {
                  debug( $student->errors());die;
              }*/
             if ($this->Students->save($student)) {
-                move_uploaded_file( $data['file']['tmp_name'], WWW_ROOT . '/img/students/' .  $data['file']['name']);
+                move_uploaded_file( $data['file']['tmp_name'], 
+                WWW_ROOT . '/img/students/' .  $data['file']['name']);
 
                 $this->Flash->success(__('L etudiant a bien été enregistré.'));
                 return $this->redirect('/students/index');
