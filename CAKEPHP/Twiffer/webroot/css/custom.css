@@ -1,0 +1,17 @@
+.username a {
+    color: #ccc;
+}
+.avatar{
+    max-width: 196px;
+}
+#button-tweet {
+    float: right;
+    margin-top: 10px;
+}
+#content {
+    width: 100%;
+    padding: 10px;
+}
+label[for=content] {
+    display: none;
+}
