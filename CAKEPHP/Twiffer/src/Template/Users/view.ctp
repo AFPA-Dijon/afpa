@@ -5,7 +5,7 @@
              <tr>
                 <td>
                     <?php 
-                    $path = isset($user->account_parameters) && isset($user->account_parameters[0]->avatar_file_name) ? $user->account_parameters[0]->avatar_file_name : 'icon-male.png';
+                    $path = !empty($user->account_parameters) && !empty($user->account_parameters[0]->avatar_file_name) ? $user->account_parameters[0]->avatar_file_name : 'icon-male.png';
                     echo $this->Html->image($path, ['class'=> 'avatar']);
                     ?>
                 </td> 
@@ -38,38 +38,33 @@
                 <th><?= __('Site web') ?></th>
                 <td><?= h($user->account_parameters[0]->website) ?></td>
             </tr>
-            <? endif;?>
+            <?php endif; ?>
         </table>
+    </div>
+    <div class="row">
+        <?= $this->element('tendances') ?>
     </div>
    
 </div>
 <div class="users view large-9 medium-8 columns content">
     
     
-    <div class="related">
-        <h4><?= __('Profil de '. $user->username) ?></h4>
-        <?php if (!empty($user->tweets)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Content') ?></th>
-                <th><?= __('Created') ?></th>
-                <th><?= __('Modified') ?></th>
-                <th><?= __('Formatted Content') ?></th>
-                <th><?= __('User Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($user->tweets as $tweets): ?>
-            <tr>
-                <td><?= h($tweets->id) ?></td>
-                <td><?= h($tweets->content) ?></td>
-                <td><?= h($tweets->created) ?></td>
-                <td><?= h($tweets->modified) ?></td>
-                <td><?= h($tweets->formatted_content) ?></td>
-                <td><?= h($tweets->user_id) ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
+    <h3><?= __('Tweets') ?></h3>
+    <?php foreach($user->tweets as $tweet):?>
+    <div class="row tweet">
+        <div class="large-2 medium-2 columns ">
+            <?php
+            $avatar = !empty($user->account_parameters) && !empty($user->account_parameters[0]->avatar_file_name)? $user->account_parameters[0]->avatar_file_name : 'icon-male.png';
+            echo $this->Html->image($avatar);
+            ?>
+        </div>
+        <div class="large-10 medium-10 columns">
+            <strong><?=  $this->Html->link($user->username, ['controller' => 'users', 'action' => 'view', $tweet->user_id]) ?></strong>
+            <span class="created"><?= $tweet->created->i18nFormat('dd-MM-yyyy HH:mm:ss', 'Europe/Paris', '24h') ?></span>
+            <br />
+            <?= $tweet->formatted_content ?>
+        </div>
     </div>
+    <?php endforeach;?>
+    
 </div>

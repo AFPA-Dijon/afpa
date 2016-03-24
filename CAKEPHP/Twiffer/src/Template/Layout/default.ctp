@@ -35,7 +35,7 @@ $cakeDescription = 'Twiffer';
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
-                <h1><a href=""><?= $cakeDescription ?></a></h1>
+                <h1><?= $this->Html->link('Twiffer', '/') ?></h1>
             </li>
         </ul>
         <div class="top-bar-section">

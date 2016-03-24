@@ -73,4 +73,27 @@ class HashtagsTable extends Table
         $rules->add($rules->isUnique(['name']));
         return $rules;
     }
+    
+    /*Finders*/
+    
+    
+    /**
+     * Trouve les hashtags par nom
+     * @param $query Query
+     * @param $options array: must contain a 'name' index
+    */
+    public function findHashtagsByName(Query $query, array $options){
+        return $query->where(['name' => $options['name']]);
+    }
+    
+    /**
+     * Trouve les hashtags les plus populaires
+     * @param $query la requête
+     * @return la requête
+    */
+    public function findPopular(Query $query){
+        return $query->order(['Hashtags.counter' => 'DESC'])
+                     ->limit(8);
+    }
+    
 }

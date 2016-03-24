@@ -20,13 +20,13 @@ class AccountParametersController extends AppController
      */
     public function form()
     {
+        $tendances = $this->AccountParameters->Users->Tweets->HashTags->find('popular');
         $userId = $this->Auth->user('id');
         $user = $this->AccountParameters->Users->get($userId, ['contain' => 'AccountParameters']);
         
         $accountParameter = empty($user->account_parameters[0]) ? $this->AccountParameters->newEntity() : $user->account_parameters[0];
         
         if ($this->request->is(['post', 'put'])) {
-             debug($this->request->data);
             
             $data =  $this->request->data;
             $data['avatar_file_name'] = $data['file']['name'];
@@ -43,7 +43,7 @@ class AccountParametersController extends AppController
                 $this->Flash->error(__('Les paramètres n\'ont pas été sauvegardés. Veuillez rééssayer.'));
             }
         }
-        $this->set(compact('accountParameter'));
+        $this->set(compact('accountParameter', 'tendances'));
     }
 
     /**

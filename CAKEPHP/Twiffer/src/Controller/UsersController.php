@@ -59,6 +59,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
+        $tendances = $this->Users->Tweets->HashTags->find('popular');
         if($this->Auth->user()){
             if(!$id){
                 $id = $this->Auth->user('id');
@@ -71,10 +72,16 @@ class UsersController extends AppController
         if(!$id){
             $id = $this->Auth->user('id');
         }
-        $user = $this->Users->get($id, [
-            'contain' => ['AccountParameters', 'Tweets']
-        ]);
-        $this->set('user', $user);
+        $user = $this->Users->findById($id)
+                            ->contain(
+                                [
+                                'AccountParameters',
+                                'Tweets' => function ($q) {
+                                    $q->find('all', ['Tweets.created', 'Tweets.formatted_content'])->order(['Tweets.created' => 'DESC']);
+                                    return $q;
+                                }]
+                            )->first();
+        $this->set(compact('user','tendances'));
     }
 
     /**

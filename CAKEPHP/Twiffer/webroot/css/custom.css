@@ -15,3 +15,13 @@
 label[for=content] {
     display: none;
 }
+.tweet {
+    margin-bottom : 5px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+.tweet span.created {
+    color: #bbb;
+    margin-left: 10px;
+    font-weight: bold;
+}

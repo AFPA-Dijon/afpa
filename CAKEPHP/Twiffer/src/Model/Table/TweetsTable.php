@@ -84,4 +84,15 @@ class TweetsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+    
+    /*Finders*/
+    
+    public function findByHashtag(Query $query, array $options){
+        return $query->matching( 'Hashtags', function ($q) use ($options)  {
+                return $q->where(['Hashtags.name' => $options['hashtag']]);
+            }
+        );
+    }
+    
+    
 }
